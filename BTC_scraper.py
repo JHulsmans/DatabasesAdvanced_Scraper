@@ -2,6 +2,12 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import pymongo as mongo
+
+client = mongo.MongoClient("mongodb://127.0.0.1:27017")
+
+btc_data_db = client["btc-data"]
+
 
 def BTC_scrape(): 
     headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
@@ -50,14 +56,25 @@ def BTC_scrape():
         index = df_sorted.index.values[0]
         values = df.iloc[[index]]
 
-        with open('logfile_BTC.txt', 'a') as f:
-            f.write(values.to_string(header = False, index = False))
-            f.write('\n')
+        col_btc = btc_data_db["data_btc"]
+
+        mydata = {
+            "hash": str(df_sorted['Hash'][0]), 
+            "time": str(df_sorted['Time'][0]),
+            "amount_btc": str(df_sorted["Amount_BTC"][0]),
+            "amount_usd": str(df_sorted["Amount_USD"][0])
+        }
+        x = col_btc.insert_one(mydata)
+        print(x.inserted_id)
         print("Succces!")
 
     except AttributeError:
         print("Error")
 
+
+#Run every minute
 while(True):
     BTC_scrape()
     time.sleep(60)
+
+
