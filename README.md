@@ -19,6 +19,6 @@ $pip install requests
 $pip install pandas
 $pip install pymongo
 
-
-
 Now, you should be able to run the scraper
+
+
