@@ -6,8 +6,8 @@ sudo apt update
 #install redis
 sudo apt install redis-server
 
-#start redis-server
-redis-server
+#check redis version 
+redis-server -v
 
-#make sure redis is working
-redis-cli ping
+
+
