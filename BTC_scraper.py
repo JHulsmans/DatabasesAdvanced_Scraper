@@ -3,6 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import pymongo as mongo
+import json
+
 
 client = mongo.MongoClient("mongodb://127.0.0.1:27017")
 
@@ -46,26 +48,26 @@ def BTC_scrape():
                 "Amount_USD" : AmountUSD,
             }
         )
-        df_copy = df
-        df_copy.Amount_USD = df_copy.Amount_USD.astype(float).astype(int)
+        # df_copy = df
+        # df_copy.Amount_USD = df_copy.Amount_USD.astype(float).astype(int)
 
-        df_sorted = df_copy.sort_values(by=['Amount_USD'], ascending=False)
+        # df_sorted = df_copy.sort_values(by=['Amount_USD'], ascending=False)
         # print(df_sorted)
         # print(df_sorted.dtypes)
 
-        index = df_sorted.index.values[0]
-        values = df.iloc[[index]]
+        # col_btc = btc_data_db["data_btc"]
 
-        col_btc = btc_data_db["data_btc"]
+        # mydata = {
+        #     "hash": str(df_sorted['Hash'][0]), 
+        #     "time": str(df_sorted['Time'][0]),
+        #     "amount_btc": str(df_sorted["Amount_BTC"][0]),
+        #     "amount_usd": str(df_sorted["Amount_USD"][0])
+        # }
+        # x = col_btc.insert_one(mydata)
+        # print(x.inserted_id)
 
-        mydata = {
-            "hash": str(df_sorted['Hash'][0]), 
-            "time": str(df_sorted['Time'][0]),
-            "amount_btc": str(df_sorted["Amount_BTC"][0]),
-            "amount_usd": str(df_sorted["Amount_USD"][0])
-        }
-        x = col_btc.insert_one(mydata)
-        print(x.inserted_id)
+        json_data = df.to_json(orient="records")
+        print(json_data)
         print("Succces!")
 
     except AttributeError:
