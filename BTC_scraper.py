@@ -2,14 +2,18 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import pymongo as mongo
+# import pymongo as mongo
 import json
+import redis 
+from rejson import Client, Path
 
 
-client = mongo.MongoClient("mongodb://127.0.0.1:27017")
+# client = mongo.MongoClient("mongodb://127.0.0.1:27017")
 
-btc_data_db = client["btc-data"]
+# btc_data_db = client["btc-data"]
 
+r = redis.Redis('localhost')
+# rj = Client(host='localhost', port=6379)
 
 def BTC_scrape(): 
     headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
@@ -67,7 +71,11 @@ def BTC_scrape():
         # print(x.inserted_id)
 
         json_data = df.to_json(orient="records")
-        print(json_data)
+        # print(json.dumps(json_data, indent=4))
+
+        # rj.jsonset('btc-data', Path.rootPath(), json_data)
+        r.set(json.dumps(json_data, indent=4), 1)
+
         print("Succces!")
 
     except AttributeError:
