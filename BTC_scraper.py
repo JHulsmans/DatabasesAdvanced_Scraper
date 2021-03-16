@@ -58,3 +58,5 @@ def BTC_scrape():
 while(True):
     BTC_scrape()
     time.sleep(60)
+
+
