@@ -10,15 +10,15 @@
 Python comes pre-installed with the newest version(s) of Ubuntu.  
 To install pip, open a terminal and run:  
   
-    $sudo apt install python-pip  
+    $sudo apt install python3-pip  
   
 Next, run the following commands:  
   
-    $pip install bs4  
-    $pip install requests  
-    $pip install pandas  
-    $pip install pymongo  
-    $pip install rejson
+    $pip3 install bs4  
+    $pip3 install requests  
+    $pip3 install pandas  
+    $pip3 install pymongo  
+    $pip3 install rejson
   
 ## Now, you should be able to run the scraper  
 
