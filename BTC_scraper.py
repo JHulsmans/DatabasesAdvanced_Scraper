@@ -26,7 +26,7 @@ def BTC_scrape():
             if(len(line.getText()) == 64):
                 Hashes.append(line.getText())
         for line in soup.findAll("span", "class" == "sc-1ryi78w-0 cILyoi sc-16b9dsl-1 ZwupP u3ufsr-0 eQTRKC"):
-            if(line.getText().__contains__(":") == True):
+            if(line.getText().__contains__(":") == True and line.getText().__contains__("NMLS") == False):
                 Time.append(line.getText())
             elif(line.getText().__contains__("BTC") == True and line.getText().__contains__("Amount") == False):
                 AmountBTC.append(line.getText())
@@ -36,6 +36,11 @@ def BTC_scrape():
                 am2 = am1.replace(",", "")
                 AmountUSD.append(am2)
         
+        # print(Hashes.__len__())
+        # print(Time)
+        # print(AmountBTC.__len__())
+        # print(AmountUSD.__len__())
+  
         df = pd.DataFrame(
             {
                 "Hash" : Hashes,
