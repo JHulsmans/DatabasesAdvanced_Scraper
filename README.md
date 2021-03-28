@@ -1,6 +1,6 @@
 # DatabasesAdvanced_Scraper
 
-## To get the scaper running, the following packages must be installed:  
+## To get the scraper running, the following packages must be installed:  
 -bs4  
 -requests  
 -pandas  
