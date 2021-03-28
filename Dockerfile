@@ -8,6 +8,4 @@ RUN pip3 install pandas
 RUN pip3 install pymongo  
 RUN pip3 install rejson
 COPY . .
-CMD [ "BTC_scraper.py" ]
-CMD [ "redis-to-mongo.py" ]
-ENTRYPOINT [ "python3" ]
+CMD [ "hostname" ]
